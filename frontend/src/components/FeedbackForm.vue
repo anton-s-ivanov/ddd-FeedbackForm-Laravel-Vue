@@ -13,7 +13,7 @@ import Errors from '@/components/Errors.vue'
     return Boolean(
       nameInput.value.length > 2
       && String(phoneInput.value).length >= 5
-      && String(phoneInput.value).length <= 15
+      && String(phoneInput.value).length <= 11
       && messageInput.value.length > 2
     )
   })

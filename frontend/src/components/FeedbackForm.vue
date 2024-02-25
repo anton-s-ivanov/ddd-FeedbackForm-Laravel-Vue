@@ -6,14 +6,14 @@ import Errors from '@/components/Errors.vue'
   const nameInput = ref('')
   const phoneInput = ref('')
   const messageInput = ref('')
-  const errors = ref([])
+  const errors = ref({})
   const form = ref()
 
   const formButtonEnabled = computed(() => { 
     return Boolean(
       nameInput.value.length > 2
       && String(phoneInput.value).length >= 5
-      && String(phoneInput.value).length <= 11
+      && String(phoneInput.value).length <= 15
       && messageInput.value.length > 2
     )
   })
@@ -30,6 +30,7 @@ import Errors from '@/components/Errors.vue'
     
     if(response.errors) {
       errors.value = response.errors
+      console.log(response);
     } else {
       if(response.message == 'ok') {
         resetForm()
@@ -41,6 +42,7 @@ import Errors from '@/components/Errors.vue'
     nameInput.value = ''
     phoneInput.value = ''
     messageInput.value = ''
+    errors.value = {}
   }
 
 
@@ -83,7 +85,7 @@ import Errors from '@/components/Errors.vue'
     </form>
 
     <div class="errors-feedback-wrapper">
-      <Errors v-if="errors.length" :errors="errors"/>
+      <Errors v-if="Object.keys(errors).length" :errors="errors"/>
     </div>
     
   </div>

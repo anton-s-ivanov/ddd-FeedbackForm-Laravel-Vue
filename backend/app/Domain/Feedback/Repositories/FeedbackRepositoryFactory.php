@@ -12,7 +12,9 @@ class FeedbackRepositoryFactory
         $feedbackStorageTypes = config('app.feedbackStorageTypes');
         
         if(!$feedbackStorageTypes[$type]) {
-            throw new HttpResponseException(response()->json(['errors' => ["Unsupported storage type: {$type}"]]));
+            $error = new \stdClass;
+            $error->storageType = ["Unsupported storage type: {$type}"];
+            throw new HttpResponseException(response()->json(['errors' => $error]));
         }
 
         return App::make($feedbackStorageTypes[$type]);
